@@ -121,10 +121,8 @@ public class SimpleListImpl implements SimpleList, Iterable<Object>
         SimpleList filtered = new SimpleListImpl();
 
         for (Object element : this)
-        {
             if (filter.include(element))
                 filtered.add(element);
-        }
 
         return filtered;
     }

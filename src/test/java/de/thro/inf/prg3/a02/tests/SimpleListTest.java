@@ -76,4 +76,13 @@ public class SimpleListTest
             assertTrue(i % 2 == 0);
         }
     }
+
+    @Test
+    void testFilterThirdNumber()
+    {
+        SimpleListImpl filtered = (SimpleListImpl) testList.filter(element -> ((int) element) > 3);
+
+        for (Object element : filtered)
+            assertTrue((int) element > 3);
+    }
 }
