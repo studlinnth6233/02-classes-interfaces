@@ -16,15 +16,20 @@ public class SimpleListImpl implements SimpleList, Iterable<Object>
 
     private class SimpleIteratorImpl implements Iterator<Object>
     {
+        Element current = head;
+
         @Override
         public boolean hasNext()
         {
-            return false;
+            return current.next != null;
         }
+
         @Override
         public Object next()
         {
-            return null;
+            current = current.next;
+
+            return current;
         }
     }
 
