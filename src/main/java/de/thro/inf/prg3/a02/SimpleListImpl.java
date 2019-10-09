@@ -8,27 +8,49 @@ import java.util.Iterator;
  */
 public class SimpleListImpl implements SimpleList, Iterable<Object>
 {
+    /**
+     * Inner class for one Element of the List
+     */
     private static class Element
     {
         Object  item;
         Element next;
 
+        /**
+         * Constructor
+         * Sets the item to store in the Element
+         *
+         * @param item The item to store in the Element
+         */
         Element(Object item)
         {
             this.item = item;
         }
     }
 
+    /**
+     * Inner class for the Iterator of the List
+     */
     private class SimpleIteratorImpl implements Iterator<Object>
     {
         Element current = head;
 
+        /**
+         * Check if there is one more Element in the List
+         *
+         * @return True / False whether there is one more Element in the List
+         */
         @Override
         public boolean hasNext()
         {
             return current != null;
         }
 
+        /**
+         * Return the value of the next Element in the List
+         *
+         * @return Value of next Element
+         */
         @Override
         public Object next()
         {
@@ -42,12 +64,22 @@ public class SimpleListImpl implements SimpleList, Iterable<Object>
 
     private Element head;
 
+    /**
+     * Return a new Instance of the Iterator of the List
+     *
+     * @return New Instance of the Iterator
+     */
     @Override
     public Iterator<Object> iterator()
     {
         return new SimpleIteratorImpl();
     }
 
+    /**
+     * Add a new Element to the back of the List
+     *
+     * @param o The Value to store
+     */
     @Override
     public void add(Object o)
     {
@@ -60,6 +92,11 @@ public class SimpleListImpl implements SimpleList, Iterable<Object>
         else              tail.next = new Element(0);
     }
 
+    /**
+     * Get the size of the List
+     *
+     * @return The size of the List
+     */
     @Override
     public int size()
     {
@@ -71,6 +108,13 @@ public class SimpleListImpl implements SimpleList, Iterable<Object>
         return count;
     }
 
+    /**
+     * Create a new List containing all Elements matching the given Filter
+     *
+     * @param filter The Filter to check
+     *
+     * @return List containing all Elements matching the Filter
+     */
     @Override
     public SimpleList filter(SimpleFilter filter)
     {
