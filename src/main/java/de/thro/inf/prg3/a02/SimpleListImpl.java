@@ -10,8 +10,13 @@ public class SimpleListImpl implements SimpleList, Iterable<Object>
 {
     private static class Element
     {
-        public Object  item;
-        public Element next;
+        Object  item;
+        Element next;
+
+        Element(Object item)
+        {
+            this.item = item;
+        }
     }
 
     private class SimpleIteratorImpl implements Iterator<Object>
@@ -21,15 +26,17 @@ public class SimpleListImpl implements SimpleList, Iterable<Object>
         @Override
         public boolean hasNext()
         {
-            return current.next != null;
+            return current != null;
         }
 
         @Override
         public Object next()
         {
+            Object value = current.item;
+
             current = current.next;
 
-            return current;
+            return value;
         }
     }
 
@@ -44,18 +51,37 @@ public class SimpleListImpl implements SimpleList, Iterable<Object>
     @Override
     public void add(Object o)
     {
+        Element tail = head;
 
+        while (tail != null && tail.next != null)
+            tail = tail.next;
+
+        if (head == null) head      = new Element(o);
+        else              tail.next = new Element(0);
     }
 
     @Override
     public int size()
     {
-        return 0;
+        int count = 0;
+
+        for (Object element : this)
+            count ++;
+
+        return count;
     }
 
     @Override
     public SimpleList filter(SimpleFilter filter)
     {
-        return null;
+        SimpleList filtered = new SimpleListImpl();
+
+        for (Object element : this)
+        {
+            if (filter.include(element))
+                filtered.add(element);
+        }
+
+        return filtered;
     }
 }
